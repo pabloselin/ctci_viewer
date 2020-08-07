@@ -7,6 +7,9 @@ const Viewer = (props) => {
 	const [numPages, setNumPages] = useState(null);
 	const [pageNumber, setPageNumber] = useState(1);
 	const pdfFile = useMemo(() => ({ url: props.pdfurl }), []);
+	const [zoom, setZoom] = useState(1);
+	const minZoom = 0.5;
+	const maxZoom = 4;
 
 	function onDocumentLoadSuccess({ numPages }) {
 		setNumPages(numPages);
@@ -25,10 +28,19 @@ const Viewer = (props) => {
 		changePage(1);
 	}
 
+	const zoomIn = () => {
+		setZoom(zoom + 0.5);
+		console.log(zoom);
+	};
+	const zoomOut = () => {
+		setZoom(zoom - 0.5);
+		console.log(zoom);
+	};
+
 	return (
 		<>
 			<Document file={pdfFile} onLoadSuccess={onDocumentLoadSuccess}>
-				<Page scale={2} pageNumber={pageNumber} />
+				<Page scale={zoom} pageNumber={pageNumber} />
 			</Document>
 			<div>
 				<p>
@@ -48,6 +60,14 @@ const Viewer = (props) => {
 					onClick={nextPage}
 				>
 					Next
+				</button>
+				<button type="button" onClick={zoomIn}>
+					{" "}
+					+{" "}
+				</button>
+				<button type="button" onClick={zoomOut}>
+					{" "}
+					-{" "}
 				</button>
 			</div>
 		</>
