@@ -1,5 +1,6 @@
 import { render, useState, useMemo } from "@wordpress/element";
 import { Document, Page, pdfjs } from "react-pdf";
+import Loader from "react-loader-spinner";
 import ScrollContainer from "react-indiana-drag-scroll";
 import Previous from "./icons/chevron-left.svg";
 import Next from "./icons/chevron-right.svg";
@@ -80,12 +81,31 @@ const Viewer = (props) => {
 					//className="ctciv_document"
 					file={pdfFile}
 					onLoadSuccess={onDocumentLoadSuccess}
-					loading="Cargando documento ..."
+					loading={
+						<div className="docloadingzone">
+							<Loader
+								type="Grid"
+								color="#000000"
+								height={100}
+								width={100}
+							/>
+						</div>
+					}
 				>
 					<Page
 						renderTextLayer={false}
 						scale={zoom}
 						pageNumber={pageNumber}
+						loading={
+							<div className="docloadingzone">
+								<Loader
+									type="Grid"
+									color="#000000"
+									height={100}
+									width={100}
+								/>
+							</div>
+						}
 					/>
 				</Document>
 			</ScrollContainer>
