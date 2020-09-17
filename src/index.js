@@ -13,9 +13,9 @@ const Viewer = (props) => {
 	const [numPages, setNumPages] = useState(null);
 	const [pageNumber, setPageNumber] = useState(1);
 	const pdfFile = useMemo(() => ({ url: props.pdfurl }), []);
-	const [zoom, setZoom] = useState(2);
-	const minZoom = 1;
-	const maxZoom = 3;
+	const [zoom, setZoom] = useState(1.0);
+	const minZoom = 1.0;
+	const maxZoom = 3.0;
 
 	function onDocumentLoadSuccess({ numPages }) {
 		setNumPages(numPages);
